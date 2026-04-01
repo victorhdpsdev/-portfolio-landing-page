@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NovaBrand Agency</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2ee;
+    --accent: #c8ff00;
+    --gray: #1a1a1a;
+    --muted: #888;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 4rem;
+    border-bottom: 1px solid #222;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.4rem;
+    letter-spacing: -0.02em;
+  }
+
+  .logo span { color: var(--accent); }
+
+  nav ul { list-style: none; display: flex; gap: 2.5rem; }
+  nav ul a { color: var(--muted); text-decoration: none; font-size: 0.9rem; letter-spacing: 0.04em; transition: color 0.2s; }
+  nav ul a:hover { color: var(--white); }
+
+  .nav-cta {
+    background: var(--accent);
+    color: var(--black) !important;
+    font-weight: 500;
+    padding: 0.5rem 1.25rem;
+    border-radius: 100px;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 4rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse 80% 60% at 60% 30%, #1a2e00 0%, transparent 60%),
+                radial-gradient(ellipse 40% 40% at 20% 80%, #0f1a00 0%, transparent 50%);
+    z-index: 0;
+  }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1.5rem;
+    position: relative; z-index: 1;
+  }
+
+  .hero-tag::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--accent); border-radius: 50%;
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    position: relative; z-index: 1;
+    max-width: 900px;
+  }
+
+  .hero h1 em { color: var(--accent); font-style: normal; }
+
+  .hero-sub {
+    margin-top: 2rem;
+    font-size: 1.1rem; color: var(--muted);
+    max-width: 460px; line-height: 1.6;
+    position: relative; z-index: 1;
+  }
+
+  .hero-cta {
+    margin-top: 2.5rem;
+    display: flex; gap: 1rem; align-items: center;
+    position: relative; z-index: 1;
+  }
+
+  .btn-primary {
+    background: var(--accent); color: var(--black);
+    padding: 1rem 2rem; border-radius: 100px;
+    font-weight: 500; font-size: 1rem;
+    text-decoration: none; transition: transform 0.2s, opacity 0.2s;
+  }
+  .btn-primary:hover { transform: scale(1.03); opacity: 0.9; }
+
+  .btn-secondary {
+    color: var(--white); font-size: 0.95rem;
+    text-decoration: none; border-bottom: 1px solid #444;
+    padding-bottom: 2px; transition: border-color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--white); }
+
+  .hero-counter {
+    position: absolute; right: 4rem; bottom: 5rem;
+    display: flex; flex-direction: column; gap: 2rem;
+    z-index: 1;
+  }
+
+  .counter-item { text-align: right; }
+  .counter-item .num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.5rem; font-weight: 800; color: var(--white);
+  }
+  .counter-item .num span { color: var(--accent); }
+  .counter-item p { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    border-top: 1px solid #222; border-bottom: 1px solid #222;
+    padding: 1rem 0; overflow: hidden;
+    background: var(--gray);
+  }
+
+  .marquee {
+    display: flex; gap: 3rem; width: max-content;
+    animation: scroll 20s linear infinite;
+  }
+
+  .marquee span {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    white-space: nowrap; color: var(--muted);
+  }
+  .marquee span.accent { color: var(--accent); }
+
+  @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* SERVICES */
+  .services {
+    padding: 7rem 4rem;
+  }
+
+  .section-label {
+    font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 3rem;
+  }
+
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    border: 1px solid #222;
+  }
+
+  .service-card {
+    padding: 2.5rem 2rem;
+    border-right: 1px solid #222;
+    transition: background 0.3s;
+    cursor: default;
+  }
+  .service-card:last-child { border-right: none; }
+  .service-card:hover { background: #111; }
+
+  .service-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem; color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .service-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem; font-weight: 700;
+    margin-bottom: 1rem; line-height: 1.2;
+  }
+
+  .service-card p {
+    font-size: 0.9rem; color: var(--muted); line-height: 1.7;
+  }
+
+  /* PROJECTS */
+  .projects {
+    padding: 2rem 4rem 7rem;
+  }
+
+  .projects-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 3rem;
+  }
+
+  .projects-header h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800; line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .projects-header a {
+    color: var(--accent); font-size: 0.9rem;
+    text-decoration: none; border-bottom: 1px solid var(--accent);
+    padding-bottom: 2px;
+  }
+
+  .projects-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--gray); border-radius: 12px;
+    padding: 2rem; position: relative; overflow: hidden;
+    min-height: 220px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    transition: transform 0.3s;
+  }
+  .project-card:hover { transform: translateY(-4px); }
+  .project-card:first-child { grid-row: span 2; min-height: 460px; }
+
+  .project-tag {
+    display: inline-block;
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em;
+    background: rgba(200,255,0,0.1); color: var(--accent);
+    padding: 0.3rem 0.75rem; border-radius: 100px;
+    margin-bottom: 0.75rem;
+  }
+
+  .project-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem;
+  }
+
+  .project-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+  .project-card .project-bg {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    opacity: 0.04; z-index: 0;
+    background: repeating-linear-gradient(
+      45deg, var(--accent) 0px, var(--accent) 1px, transparent 1px, transparent 12px
+    );
+  }
+  .project-card > *:not(.project-bg) { position: relative; z-index: 1; }
+
+  /* TESTIMONIAL */
+  .testimonial {
+    padding: 5rem 4rem;
+    border-top: 1px solid #222;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+
+  .testimonial blockquote {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700; line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
+
+  .testimonial blockquote::before {
+    content: '"'; color: var(--accent); font-size: 4rem;
+    line-height: 0; display: block; margin-bottom: 1.5rem;
+  }
+
+  .testimonial-author { margin-top: 2rem; }
+  .testimonial-author strong { display: block; font-weight: 500; }
+  .testimonial-author span { font-size: 0.85rem; color: var(--muted); }
+
+  .testimonial-right p {
+    font-size: 1rem; color: var(--muted); line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  /* CTA SECTION */
+  .cta-section {
+    margin: 0 4rem 5rem;
+    background: var(--accent); border-radius: 16px;
+    padding: 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .cta-section h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800; color: var(--black);
+    letter-spacing: -0.03em; max-width: 500px;
+  }
+
+  .btn-dark {
+    background: var(--black); color: var(--white);
+    padding: 1rem 2rem; border-radius: 100px;
+    font-weight: 500; font-size: 1rem;
+    text-decoration: none; white-space: nowrap;
+    transition: opacity 0.2s;
+  }
+  .btn-dark:hover { opacity: 0.8; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid #222;
+    padding: 2rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  footer p { font-size: 0.85rem; color: var(--muted); }
+  footer .logo { font-size: 1.1rem; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-tag { animation: fadeUp 0.6s ease both; }
+  .hero h1 { animation: fadeUp 0.7s 0.1s ease both; }
+  .hero-sub { animation: fadeUp 0.7s 0.2s ease both; }
+  .hero-cta { animation: fadeUp 0.7s 0.3s ease both; }
+  .hero-counter { animation: fadeUp 0.7s 0.4s ease both; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    nav ul { display: none; }
+    .hero { padding: 0 1.5rem 4rem; }
+    .hero-counter { right: 1.5rem; bottom: 4rem; }
+    .services, .projects, .testimonial, .cta-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .service-card { border-right: none; border-bottom: 1px solid #222; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card:first-child { grid-row: span 1; min-height: 220px; }
+    .testimonial { grid-template-columns: 1fr; gap: 2rem; }
+    .cta-section { flex-direction: column; gap: 2rem; margin: 0 1.5rem 3rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Nova<span>Brand</span></div>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#contact" class="nav-cta">Get started</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-tag">Digital Marketing Agency</div>
+  <h1>We build brands that <em>actually</em> grow.</h1>
+  <p class="hero-sub">Strategy, design, and digital campaigns for startups and businesses ready to scale beyond borders.</p>
+  <div class="hero-cta">
+    <a href="#contact" class="btn-primary">Start a project</a>
+    <a href="#projects" class="btn-secondary">See our work</a>
+  </div>
+  <div class="hero-counter">
+    <div class="counter-item">
+      <div class="num">120<span>+</span></div>
+      <p>Projects delivered</p>
+    </div>
+    <div class="counter-item">
+      <div class="num">98<span>%</span></div>
+      <p>Client satisfaction</p>
+    </div>
+    <div class="counter-item">
+      <div class="num">5<span>yr</span></div>
+      <p>In the industry</p>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee">
+    <span>Brand Strategy</span><span class="accent">✦</span>
+    <span>Web Development</span><span class="accent">✦</span>
+    <span>SEO & Growth</span><span class="accent">✦</span>
+    <span>Social Media</span><span class="accent">✦</span>
+    <span>UI/UX Design</span><span class="accent">✦</span>
+    <span>Content Creation</span><span class="accent">✦</span>
+    <span>Brand Strategy</span><span class="accent">✦</span>
+    <span>Web Development</span><span class="accent">✦</span>
+    <span>SEO & Growth</span><span class="accent">✦</span>
+    <span>Social Media</span><span class="accent">✦</span>
+    <span>UI/UX Design</span><span class="accent">✦</span>
+    <span>Content Creation</span><span class="accent">✦</span>
+  </div>
+</div>
+
+<section class="services" id="services">
+  <p class="section-label">What we do</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <h3>Brand Identity</h3>
+      <p>Logos, visual systems, and brand guidelines built to stand out in competitive markets.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <h3>Web Design & Dev</h3>
+      <p>Fast, modern websites and landing pages that convert visitors into paying customers.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <h3>Growth Marketing</h3>
+      <p>Data-driven campaigns across Google, Meta, and LinkedIn to scale your revenue.</p>
+    </div>
+  </div>
+</section>
+
+<section class="projects" id="projects">
+  <div class="projects-header">
+    <h2>Recent<br/>work.</h2>
+    <a href="#">View all projects →</a>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-bg"></div>
+      <span class="project-tag">Branding + Web</span>
+      <h3>Volta Electric</h3>
+      <p>Complete rebrand and website redesign for an EV startup entering the US market.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-bg"></div>
+      <span class="project-tag">Growth</span>
+      <h3>Leaf Finance</h3>
+      <p>Paid media strategy that tripled their qualified leads in 90 days.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-bg"></div>
+      <span class="project-tag">UI/UX</span>
+      <h3>Orion SaaS</h3>
+      <p>Dashboard redesign that reduced churn by 22% in the first quarter.</p>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial">
+  <div>
+    <blockquote>
+      NovaBrand turned our chaotic marketing into a real growth engine. Best decision we made.
+    </blockquote>
+    <div class="testimonial-author">
+      <strong>Sarah Chen</strong>
+      <span>CEO, Volta Electric</span>
+    </div>
+  </div>
+  <div class="testimonial-right">
+    <p>We don't believe in vanity metrics. Every campaign, every design decision, every strategy is tied to one thing — growing your business.</p>
+    <a href="#contact" class="btn-primary" style="display:inline-block;">Work with us</a>
+  </div>
+</section>
+
+<div class="cta-section" id="contact">
+  <h2>Ready to grow your brand?</h2>
+  <a href="mailto:hello@novabrand.co" class="btn-dark">hello@novabrand.co</a>
+</div>
+
+<footer>
+  <div class="logo">Nova<span>Brand</span></div>
+  <p>© 2025 NovaBrand Agency. All rights reserved.</p>
+  <p>Built with passion.</p>
+</footer>
+
+</body>
+</html>
